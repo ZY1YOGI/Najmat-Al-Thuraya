@@ -29,6 +29,19 @@ class CustomerResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static string $permissionKey = 'customers';
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('navigation.customers');
+    }
+    public static function getPluralModelLabel(): string
+    {
+        return trans('navigation.customers');
+    }
+    public static function getModelLabel(): string
+    {
+        return trans('field.customer');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -36,12 +49,14 @@ class CustomerResource extends Resource
                 Forms\Components\TextInput::make('store_name')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label(trans('field.store_name')),
 
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label(trans('field.name')),
 
                 Forms\Components\TagsInput::make('phones')
                     ->required()
@@ -55,44 +70,46 @@ class CustomerResource extends Resource
                         'min:9',
                         'max:14',
                     ])
-                    ->columnSpanFull(),
-
-
+                    ->columnSpanFull()
+                    ->label(trans('field.phones')),
 
                 Forms\Components\TextInput::make('address')
                     ->required()
                     ->maxLength(999)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->label(trans('field.address')),
 
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->rows(5)
                     ->columnSpanFull()
-                    ->maxLength(999),
+                    ->maxLength(999)
+                    ->label(trans('field.description')),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn(Builder $query) => $query
-                ->withCount(['invoices_buy', 'invoices_sell'])
-                ->withSum('invoices_buy as buy_total', 'price')
-                ->withSum('invoices_sell as sell_total', 'price_sell')
+            ->modifyQueryUsing(
+                fn(Builder $query) => $query
+                    ->withCount(['invoices_buy', 'invoices_sell'])
+                    ->withSum('invoices_buy as buy_total', 'price')
+                    ->withSum('invoices_sell as sell_total', 'price_sell')
             )
             ->columns([
-                Tables\Columns\TextColumn::make('store_name')->searchable(),
-                Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('phones')->badge(),
-                Tables\Columns\TextColumn::make('address')->words(4),
-                Tables\Columns\TextColumn::make('invoices_buy_count')->label('buy')->sortable(),
-                Tables\Columns\TextColumn::make('invoices_sell_count')->label('sell')->sortable(),
+                Tables\Columns\TextColumn::make('store_name')->label(trans('field.store_name'))->searchable(),
+                Tables\Columns\TextColumn::make('name')->label(trans('field.name'))->searchable(),
+                Tables\Columns\TextColumn::make('phones')->label(trans('field.phones'))->badge(),
+                Tables\Columns\TextColumn::make('address')->label(trans('field.address'))->words(4),
+                Tables\Columns\TextColumn::make('invoices_buy_count')->label(trans('field.buy'))->sortable(),
+                Tables\Columns\TextColumn::make('invoices_sell_count')->label(trans('field.sell'))->sortable(),
 
-                Tables\Columns\TextColumn::make('buy_total')->default(0)->label('buy total')->money()->sortable(),
+                Tables\Columns\TextColumn::make('buy_total')->default(0)->label(trans('field.buy_total'))->money()->sortable(),
 
-                Tables\Columns\TextColumn::make('sell_total')->default(0)->label('sell total')->money()->sortable(),
+                Tables\Columns\TextColumn::make('sell_total')->default(0)->label(trans('field.sell_total'))->money()->sortable(),
 
-                Tables\Columns\TextColumn::make('net_total')->label('net')->money()->getStateUsing(fn(Customer $record) => $record->sell_total - $record->buy_total)->sortable(),
+                Tables\Columns\TextColumn::make('net_total')->label('net')->label(trans('field.net_total'))->money()->getStateUsing(fn(Customer $record) => $record->sell_total - $record->buy_total)->sortable(),
 
                 // Tables\Columns\TextColumn::make('description')->searchable()->words(10),
 
@@ -101,12 +118,14 @@ class CustomerResource extends Resource
                 Tables\Actions\Action::make('invoices_sell')
                     ->modalWidth('6xl')
                     ->color(InvoiceTypes::SELL->getColor())
-                    ->infolist(fn(Infolist $infolist): Infolist => static::infolistInvoicesSell($infolist)),
+                    ->infolist(fn(Infolist $infolist): Infolist => static::infolistInvoicesSell($infolist))
+                    ->label(trans('field.invoices_sell')),
 
                 Tables\Actions\Action::make('invoices_buy')
                     ->modalWidth('6xl')
                     ->color(InvoiceTypes::BUY->getColor())
-                    ->infolist(fn(Infolist $infolist): Infolist => static::infolistInvoicesBuy($infolist)),
+                    ->infolist(fn(Infolist $infolist): Infolist => static::infolistInvoicesBuy($infolist))
+                    ->label(trans('field.invoices_buy')),
 
 
                 ...static::getActions()

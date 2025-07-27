@@ -14,8 +14,8 @@ class Role extends Model
      */
     protected $fillable = [
         'name',
-        'description',
         'permissions',
+        'description'
     ];
 
     /**
@@ -33,11 +33,15 @@ class Role extends Model
 
     protected static function booted(): void
     {
-        static::creating(function (Role $role): void {
+        static::creating(function (Role $role) {
             $role->permissions = static::getFormSchema();
         });
 
-        static::deleted(function (Role $role): void {
+        static::deleting(function (Role $role) {
+            if (in_array($role->id, [1, 2])) {
+                throw new \Exception('You cannot delete this role (Super Admin or Default Role).');
+            }
+
             $role->users()->update(['role_id' => 2]);
         });
     }
@@ -68,7 +72,7 @@ class Role extends Model
             throw new \RuntimeException("Permission section [{$section}] not found.");
         }
 
-        if(!isset($permissions[$section][$key])) {
+        if (!isset($permissions[$section][$key])) {
             throw new \RuntimeException("Permission section [{$section}:{$key}] not found.");
         }
 
@@ -82,12 +86,12 @@ class Role extends Model
 
     protected static function getFormSchema(): array
     {
-        $schemaPath = database_path('PermissionsFormSchema.json');
+        $schemaPath = database_path('PermissionsFormSchema.php');
 
         if (!file_exists($schemaPath)) {
             throw new \RuntimeException('Permissions form schema file does not exist');
         }
 
-        return json_decode(file_get_contents($schemaPath), true);
+        return require $schemaPath;
     }
 }

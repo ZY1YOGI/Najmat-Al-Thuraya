@@ -25,6 +25,19 @@ class RoleResource extends Resource
     protected static ?int $navigationSort = 2;
     protected static string $permissionKey = 'roles';
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('navigation.roles');
+    }
+    public static function getPluralModelLabel(): string
+    {
+        return trans('navigation.roles');
+    }
+    public static function getModelLabel(): string
+    {
+        return trans('field.role');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -33,13 +46,15 @@ class RoleResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true)
                     ->maxLength(100)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->label(trans('field.name')),
 
                 Forms\Components\Textarea::make('description')
                     ->nullable()
                     ->rows(5)
                     ->columnSpanFull()
-                    ->maxLength(999),
+                    ->maxLength(999)
+                    ->label(trans('field.description')),
             ]);
     }
 
@@ -47,8 +62,8 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('description')->searchable()->words(10),
+                Tables\Columns\TextColumn::make('name')->searchable()->label(trans('field.name')),
+                Tables\Columns\TextColumn::make('description')->searchable()->words(10)->label(trans('field.description')),
             ])
             ->actions([
                 Tables\Actions\Action::make("permissions")
@@ -68,7 +83,7 @@ class RoleResource extends Resource
                         static::sendNotificationSuccess('Permissions updated', 'Permissions have been successfully updated for the role.');
                     })
                     ->label(trans('field.permissions'))
-                    ->visible(Role::can('roles:edit-permissions')),
+                    ->visible(static::checkPermission('edit-permissions')),
 
                 ...static::getActions(
                     delete: fn(Role $record) => !in_array($record->id, [1, 2]),

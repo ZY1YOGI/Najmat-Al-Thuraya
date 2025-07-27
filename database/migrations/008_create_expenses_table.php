@@ -10,10 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->json('permissions');
+            $table->string('name');
+            $table->date('expenses_date');
+            $table->decimal('amount');
+            $table->tinyInteger('payment_option')->default(0);
             $table->text('description')->nullable();
             $table->timestamps();
         });
@@ -24,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('expenses');
     }
 };

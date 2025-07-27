@@ -25,6 +25,19 @@ class PhoneModelResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static string $permissionKey = 'phone_models';
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('navigation.models');
+    }
+    public static function getPluralModelLabel(): string
+    {
+        return trans('navigation.models');
+    }
+    public static function getModelLabel(): string
+    {
+        return trans('field.model');
+    }
+
     public static function form(Form $form): Form
     {
         return $form

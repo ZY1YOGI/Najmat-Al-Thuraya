@@ -26,6 +26,19 @@ class UserResource extends Resource
     protected static ?int $navigationSort = 3;
     protected static string $permissionKey = 'users';
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('navigation.users');
+    }
+    public static function getPluralModelLabel(): string
+    {
+        return trans('navigation.users');
+    }
+    public static function getModelLabel(): string
+    {
+        return trans('field.user');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -36,34 +49,40 @@ class UserResource extends Resource
                     ->disk('images')
                     ->directory('avatars')
                     ->maxSize(1024)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->label(trans('field.avatar')),
 
                 Forms\Components\TextInput::make('username')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label(trans('field.username')),
 
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(50),
+                    ->maxLength(50)
+                    ->label(trans('field.name')),
 
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label(trans('field.email')),
 
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->required()
-                    ->maxLength(14),
+                    ->maxLength(14)
+                    ->label(trans('field.phone')),
 
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->minLength(8)
                     ->maxLength(255)
                     ->dehydrateStateUsing(fn($state) => filled($state) ? Hash::make($state) : null)
-                    ->dehydrated(fn($state) => filled($state)),
+                    ->dehydrated(fn($state) => filled($state))
+                    ->label(trans('field.password')),
 
                 Forms\Components\TextInput::make('password_confirmation')
                     ->password()
@@ -71,7 +90,8 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->dehydrated(false)
                     ->requiredWith('password')
-                    ->same('password'),
+                    ->same('password')
+                    ->label(trans('field.password_confirmation')),
 
                 Forms\Components\Select::make('role_id')
                     ->relationship('role', 'name')
@@ -80,7 +100,8 @@ class UserResource extends Resource
                     ->searchable()
                     ->required()
                     ->preload()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->label(trans('field.role')),
             ]);
     }
 
@@ -88,11 +109,12 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('avatar')->disk('images')->circular(),
-                Tables\Columns\TextColumn::make('username')->searchable(),
-                Tables\Columns\TextColumn::make('name')->searchable(),
-                Tables\Columns\TextColumn::make('email')->searchable()->icon('heroicon-m-envelope'),
-                Tables\Columns\TextColumn::make('role.name')->icon('heroicon-o-shield-check'),
+                Tables\Columns\ImageColumn::make('avatar')->disk('images')->circular()->label(trans('field.avatar')),
+                Tables\Columns\TextColumn::make('name')->searchable()->label(trans('field.name')),
+                Tables\Columns\TextColumn::make('username')->searchable()->label(trans('field.username')),
+                Tables\Columns\TextColumn::make('email')->searchable()->icon('heroicon-o-envelope')->label(trans('field.email')),
+                Tables\Columns\TextColumn::make('type')->label(trans('field.type')),
+                Tables\Columns\TextColumn::make('role.name')->icon('heroicon-o-shield-check')->label(trans('field.role')),
             ])
             ->modifyQueryUsing(function (Builder $query) {
                 // return $query->where('id', '!=', 1);
@@ -103,7 +125,7 @@ class UserResource extends Resource
                     ->native(false)
                     ->searchable()
                     ->preload()
-                    ->label(trans('filter.role')),
+                    ->label(trans('field.role')),
             ])
             ->actions(static::getActions());
     }
