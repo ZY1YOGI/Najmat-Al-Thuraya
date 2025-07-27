@@ -20,7 +20,8 @@
         "ASSET_URL": "https://najmat-al-thuraya.vercel.app",
         "APP_KEY": "base64:/s4afqEpcPnoWCseCj6HGHzfJBemaw0p8uaqNKTZnrA=",
 
-        "DB_CONNECTION": "sqlite",
+        "DB_CONNECTION": "pgsql",
+        "DB_URL": "postgres://neondb_owner:npg_H0fCeqrRBo6t@ep-icy-night-adtvxzf5-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
