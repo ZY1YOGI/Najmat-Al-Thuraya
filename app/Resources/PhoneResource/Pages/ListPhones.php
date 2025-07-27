@@ -22,12 +22,16 @@ class ListPhones extends ListRecords
 
     public function getTabs(): array
     {
-        return collect(InvoiceTypes::cases())
+        return [
+            Tab::make('All'),
+
+            ...collect(InvoiceTypes::cases())
             ->mapWithKeys(fn($status): array => [
                 $status->value => Tab::make($status->getLabel())
                     ->query(fn($query) => $query->where('status', $status->value)),
             ])
-            ->toArray();
+            ->toArray()
+        ];
     }
 
 }

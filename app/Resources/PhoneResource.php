@@ -40,10 +40,7 @@ class PhoneResource extends Resource
                     ->native(false)
                     ->preload()
                     ->reactive()
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 6,
-                    ])
+                    ->columnSpan(['default' => 12, 'md' => 6])
                     ->searchable(),
 
                 Forms\Components\TextInput::make('imei')
@@ -54,10 +51,7 @@ class PhoneResource extends Resource
                     ->maxLength(15)
                     ->rule('regex:/^3[0-9]{14}$/')
                     ->prefix('IMEI')
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 6,
-                    ]),
+                    ->columnSpan(['default' => 12, 'md' => 6]),
 
                 Forms\Components\Select::make('color')
                     ->required()
@@ -74,10 +68,7 @@ class PhoneResource extends Resource
                     })
                     ->native(false)
                     ->preload()
-                    ->columnSpan([
-                        'default' => 6,
-                        'md' => 3,
-                    ]),
+                    ->columnSpan(['default' => 6, 'md' => 3]),
 
                 Forms\Components\Select::make('storage')
                     ->required()
@@ -94,10 +85,7 @@ class PhoneResource extends Resource
                     })
                     ->native(false)
                     ->preload()
-                    ->columnSpan([
-                        'default' => 6,
-                        'md' => 2,
-                    ]),
+                    ->columnSpan(['default' => 6, 'md' => 2,]),
 
 
                 Forms\Components\Select::make('country')
@@ -106,10 +94,7 @@ class PhoneResource extends Resource
                     ->native(false)
                     ->preload()
                     ->placeholder(null)
-                    ->columnSpan([
-                        'default' => 6,
-                        'md' => 3,
-                    ]),
+                    ->columnSpan(['default' => 6, 'md' => 3]),
 
                 Forms\Components\TextInput::make('battery')
                     ->required()
@@ -117,10 +102,7 @@ class PhoneResource extends Resource
                     ->step(1)
                     ->minValue(50)
                     ->maxValue(100)
-                    ->columnSpan([
-                        'default' => 6,
-                        'md' => 2,
-                    ]),
+                    ->columnSpan(['default' => 6,'md' => 2]),
 
 
                 Forms\Components\Select::make('sim_card')
@@ -129,10 +111,7 @@ class PhoneResource extends Resource
                     ->native(false)
                     ->preload()
                     ->placeholder(null)
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 2,
-                    ]),
+                    ->columnSpan(['default' => 12,'md' => 2]),
 
 
                 Forms\Components\Select::make('problems')
@@ -149,10 +128,7 @@ class PhoneResource extends Resource
                     ->native(false)
                     ->preload()
                     ->reactive()
-                    ->columnSpan([
-                        'default' => 12,
-                        'md' => 12,
-                    ])
+                    ->columnSpan(['default' => 12,'md' => 12])
                     ->searchable()
                     ->label('Customer'),
 
