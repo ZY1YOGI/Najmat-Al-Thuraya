@@ -20,12 +20,11 @@
         "ASSET_URL": "https://najmat-al-thuraya.vercel.app",
         "APP_KEY": "base64:/s4afqEpcPnoWCseCj6HGHzfJBemaw0p8uaqNKTZnrA=",
 
-        "DB_CONNECTION": "mysql",
-        "DB_HOST": "db-host",
-        "DB_PORT": "3306",
-        "DB_DATABASE": "your_db",
-        "DB_USERNAME": "your_user",
-        "DB_PASSWORD": "your_pass",
+        "DB_CONNECTION": "sqlite",
+
+        "SESSION_DRIVER": "file",
+        "QUEUE_CONNECTION": "sync",
+        "CACHE_STORE": "file",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -35,7 +34,6 @@
         "VIEW_COMPILED_PATH": "/tmp",
 
         "CACHE_DRIVER": "array",
-        "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "LOG_CHANNEL": "stderr"
     }
 }
