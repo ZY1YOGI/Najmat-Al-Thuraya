@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->databaseNotifications()
+            // ->databaseNotifications()
             ->sidebarCollapsibleOnDesktop()
             ->favicon(asset('favicons/favicon.png'));
 
