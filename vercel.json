@@ -35,6 +35,5 @@
         "QUEUE_CONNECTION": "sync",
         "CACHE_STORE": "array",
         "LOG_CHANNEL": "stderr"
-    },
-    "buildCommand": "php artisan migrate --force && php artisan db:seed --force"
+    }
 }

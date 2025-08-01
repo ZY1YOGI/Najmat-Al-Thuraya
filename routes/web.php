@@ -1,3 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('setup', function () {
+    Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+
+    return 'Database migrated and seeded successfully.';
+});
