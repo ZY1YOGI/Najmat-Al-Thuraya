@@ -65,28 +65,7 @@ class DatabaseSeeder extends Seeder
                 '971545731657'
             ],
             'address' => 'SA',
-            'description' => 'الحج رجب ابويا',
-        ]);
-
-        Customer::create([
-            'name' => 'Farouk',
-            'store_name' => 'Mine Store',
-            'phones' => [
-                '0109255551'
-            ],
-            'address' => 'Land of the Brigade, Al-Shohada Street / Mohandessin',
-            'description' => 'test',
-        ]);
-
-        Customer::create([
-            'name' => 'Ahmed',
-            'store_name' => 'Ahmed Store',
-            'phones' => [
-                '01003337432',
-                '01149458193'
-            ],
-            'address' => 'Giza Bottom Shallah',
-            'description' => 'description for store Ahmed',
+            'description' => 'My Dad',
         ]);
     }
 

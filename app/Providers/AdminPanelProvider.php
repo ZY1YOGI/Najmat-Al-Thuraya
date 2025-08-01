@@ -43,9 +43,8 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->assets([
-                // Css::make('app-css', Vite::useHotFile('hot')->asset('resources/css/app.css')),
-                // Js::make('app-js', Vite::useHotFile('hot')->asset('resources/js/app.js')),
+             ->widgets([
+                \App\Widgets\Dashboard::class,
             ])
             ->navigationGroups([
                 NavigationGroup::make()
@@ -66,7 +65,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            // ->databaseNotifications()
+            ->databaseNotifications()
             ->sidebarCollapsibleOnDesktop()
             ->favicon(asset('favicons/favicon.png'));
 
