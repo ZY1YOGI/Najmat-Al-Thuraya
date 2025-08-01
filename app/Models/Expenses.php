@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ExpensesPaymentOptions;
+use App\Enums\PaymentOptions;
 use Illuminate\Database\Eloquent\Model;
 
 class Expenses extends Model
@@ -28,8 +28,8 @@ class Expenses extends Model
     protected function casts(): array
     {
         return [
-            'expenses_date' => 'date',
-            'payment_option' => ExpensesPaymentOptions::class
+            'expenses_date' => 'datetime',
+            'payment_option' => PaymentOptions::class
         ];
     }
 }

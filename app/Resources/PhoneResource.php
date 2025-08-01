@@ -85,7 +85,7 @@ class PhoneResource extends Resource
                     })
                     ->native(false)
                     ->preload()
-                    ->columnSpan(['default' => 6, 'md' => 2,]),
+                    ->columnSpan(['default' => 6, 'md' => 2]),
 
 
                 Forms\Components\Select::make('country')

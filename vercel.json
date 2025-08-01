@@ -5,7 +5,7 @@
         "api/index.php": { "runtime": "vercel-php@0.7.3" }
     },
     "routes": [
-        { "src": "/js/(.*)", "dest": "/public/s/$1" },
+        { "src": "/js/(.*)", "dest": "/public/js/$1" },
         { "src": "/css/(.*)", "dest": "/public/css/$1" },
         { "src": "/images/(.*)", "dest": "/public/images/$1" },
         { "src": "/favicon.ico", "dest": "/public/favicon.ico" },
@@ -22,6 +22,7 @@
         "APP_KEY": "base64:/s4afqEpcPnoWCseCj6HGHzfJBemaw0p8uaqNKTZnrA=",
 
         "DB_CONNECTION": "sqlite",
+        "DB_DATABASE": "/tmp/database.sqlite",
 
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
@@ -34,5 +35,6 @@
         "QUEUE_CONNECTION": "sync",
         "CACHE_STORE": "array",
         "LOG_CHANNEL": "stderr"
-    }
+    },
+    "buildCommand": "php artisan migrate --force && php artisan db:seed --force"
 }

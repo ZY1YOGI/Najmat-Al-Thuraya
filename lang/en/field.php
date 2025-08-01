@@ -9,6 +9,8 @@ return [
     'description' => 'Description',
     'note' => 'Note',
     'store_name' => 'Store Name',
+    'take_from' => 'Take From',
+    'give_his' => 'Give His',
     'buy' => 'Buy',
     'sell' => 'Sell',
     'buy_total' => 'Buy Total',
@@ -31,4 +33,9 @@ return [
     'min_price' => 'Min Price',
     'average_price' => 'Average Price',
     'max_price' => 'Max Price',
+    'payment' => 'Payment',
+    'payment_type' => 'Payment Type',
+    'payment_date' => 'Payment Date',
+    'date' => 'Date',
+    'transactions' => 'Transactions',
 ];

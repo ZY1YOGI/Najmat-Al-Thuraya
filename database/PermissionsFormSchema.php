@@ -37,5 +37,11 @@ return [
         'create' => true,
         'edit' => true,
         'delete' => true
+    ],
+    'payments' => [
+        'view' => true,
+        'create' => true,
+        'edit' => true,
+        'delete' => true
     ]
 ];

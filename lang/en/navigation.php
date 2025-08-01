@@ -7,4 +7,5 @@ return [
     'customers' => 'Customers',
     'phones' => 'Phones',
     'models' => 'Models',
+    'payments' => 'Payments',
 ];
